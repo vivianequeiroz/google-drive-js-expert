@@ -6,7 +6,7 @@ export default {
   coverageProvider: "v8",
   coverageReporters: ["text", "lcov"],
   testEnvironment: "node",
-  coverageThreshould: {
+  coverageThreshold: {
     global: {
       branches: 100,
       functions: 100,
