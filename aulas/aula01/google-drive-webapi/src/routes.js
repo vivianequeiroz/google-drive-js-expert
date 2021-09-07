@@ -1,13 +1,13 @@
-import { logger } from "./logger.js"
+import { logger } from "./logger.js";
 export default class Routes {
   constructor() {}
 
   setSocketInstance(io) {
     this.io = io;
   }
-  
+
   async defaultRoute(request, response) {
-    response.end('Henlo world!');
+    response.end("Henlo world!");
   }
 
   async options(request, response) {
@@ -16,19 +16,19 @@ export default class Routes {
   }
 
   async post(request, response) {
-    logger.info('Post is ok =)');
+    logger.info("Post is ok =)");
     response.end();
   }
 
   async get(request, response) {
-    logger.info('Get is ok =)');
+    logger.info("Get is ok =)");
     response.end();
   }
 
   handler(request, response) {
-    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader("Access-Control-Allow-Origin", "*");
     const chosen = this[request.method.toLowerCase()] || this.defaultRoute;
-    
+
     return chosen.apply(this, [request, response]);
   }
 }
