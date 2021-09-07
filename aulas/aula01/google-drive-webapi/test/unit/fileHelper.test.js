@@ -1,6 +1,6 @@
 import { describe, test, expect, jest } from "@jest/globals";
-import fs from 'fs'
-import FileHelper from '../../src/fileHelper.js'
+import fs from "fs";
+import FileHelper from "../../src/fileHelper.js";
 import Routes from "./../../src/routes.js";
 
 describe("#FileHelper test suite", () => {
@@ -30,19 +30,21 @@ describe("#FileHelper test suite", () => {
       const mockUser = "vivianequeiroz";
       process.env.USER = mockUser;
 
-      const filename = 'file.png';
+      const filename = "file.png";
 
-      jest.spyOn(fs.promises, fs.promises.readdir.name)
-          .mockResolvedValue([filename]);
+      jest
+        .spyOn(fs.promises, fs.promises.readdir.name)
+        .mockResolvedValue([filename]);
 
-          jest.spyOn(fs.promises, fs.promises.stat.name)
-          .mockResolvedValue(statMock);
+      jest
+        .spyOn(fs.promises, fs.promises.stat.name)
+        .mockResolvedValue(statMock);
 
-      const result = await FileHelper.getFileStatus("/temp")
+      const result = await FileHelper.getFilesStatus("/temp");
 
       const expectedResults = [
         {
-          size: '7.21 kB',
+          size: "7.21 kB",
           lastModified: statMock.birthtime,
           owner: mockUser,
           file: filename,
