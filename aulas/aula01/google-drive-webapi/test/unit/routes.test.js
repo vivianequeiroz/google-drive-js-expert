@@ -3,7 +3,7 @@ import Routes from "./../../src/routes.js";
 
 describe("#Routes test suite", () => {
   describe("#setSocketInstance", () => {
-    test("setSocket should store io instance", () => {
+    test("setSocket should stored io instance", () => {
       const routes = new Routes();
       const ioObj = {
         to: (id) => ioObj,
@@ -65,7 +65,7 @@ describe("#Routes test suite", () => {
       params.request.method = "OPTIONS";
       await routes.handler(...params.values());
       expect(params.response.writeHead).toHaveBeenCalledWith(204);
-      expect(params.response.end).toHaveBeenCalled ();
+      expect(params.response.end).toHaveBeenCalled();
     });
 
     test("given method POST it should choose post route", async () => {
@@ -89,9 +89,13 @@ describe("#Routes test suite", () => {
 
       params.request.method = "GET";
       jest.spyOn(routes, routes.get.name).mockResolvedValue();
-      
+
       await routes.handler(...params.values());
       expect(routes.get).toHaveBeenCalled();
     });
+  });
+
+  describe("#get", () => {
+    test.skip("given method GET it should list all files downloaded", async () => {});
   });
 });
