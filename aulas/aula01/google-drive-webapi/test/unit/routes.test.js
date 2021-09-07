@@ -42,7 +42,18 @@ describe("#Routes test suite", () => {
       expect(params.response.end).toHaveBeenCalledWith('Henlo world!');
     });
 
-    test.todo("it should set any request with CORS enabled");
+    test("it should set any request with CORS enabled", () => {
+      const routes = new Routes();
+      const params = {
+        ...defaultParams,
+      };
+
+      params.request.method = "inexistent";
+      routes.handler(...params.values());
+      expect(params.response.setHeader)
+        .toHaveBeenCalledWith('Access-Control-Allow-Origin', '*');
+    });
+  
     test.todo("given method OPTIONS it should choose options route");
     test.todo("given method POST it should choose post route");
     test.todo("given method GET it should choose get route");
