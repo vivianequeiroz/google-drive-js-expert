@@ -1,0 +1,22 @@
+{
+  "name": "@Viviane-Queiroz/google-drive-webapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.1.0"
+  },
+  "dependencies": {
+    "pino": "6.8",
+    "pino-pretty": "5.1",
+    "socket.io": "4.1"
+  }
+}
