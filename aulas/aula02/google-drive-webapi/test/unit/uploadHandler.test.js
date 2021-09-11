@@ -116,9 +116,8 @@ describe("#UploadHandler test suite", () => {
   });
 
   describe("#canExecute", () => {
-    
     test("should return true when time is later than specified delay", () => {
-      const timerDelay = 1000,
+      const timerDelay = 1000;
       const uploadHandler = new UploadHandler({
         io: {},
         socketId: "",

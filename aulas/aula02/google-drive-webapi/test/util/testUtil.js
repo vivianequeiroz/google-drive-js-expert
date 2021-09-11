@@ -1,6 +1,10 @@
 import { Readable, Transform, Writable } from "stream";
 
 export default class TestUtil {
+  static getTimeFromDate(dateString) {
+    return new Date(dateString).getTime();
+  }
+
   //receives an array
   static generateReadableStream(data) {
     return new Readable({
