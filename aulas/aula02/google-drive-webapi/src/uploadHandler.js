@@ -4,9 +4,9 @@ import fs from "fs";
 import { logger } from "./logger";
 
 export default class UploadHandler {
-  constructor({ io, socketIo, downloadsFolder }) {
+  constructor({ io, socketId, downloadsFolder }) {
     (this.io = io),
-      (this.socketIo = socketIo),
+      (this.socketId = socketId),
       (this.downloadsFolder = downloadsFolder),
       (this.ON_UPLOAD_EVENT = "file-upload");
   }
