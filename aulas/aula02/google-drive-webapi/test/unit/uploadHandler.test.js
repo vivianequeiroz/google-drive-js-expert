@@ -3,6 +3,7 @@ import Routes from "../../src/routes.js";
 import UploadHandler from "../../src/uploadHandler.js";
 import fs from "fs";
 import { resolve } from "path";
+import { pipeline } from "stream/promises";
 import TestUtil from "../util/testUtil.js";
 
 describe("#UploadHandler test suite", () => {
@@ -12,7 +13,7 @@ describe("#UploadHandler test suite", () => {
   };
 
   describe("#registerEvents", () => {
-    test("should call onFile and onFinish functions on Bysboy instance", () => {
+    test("should call onFile and onFinish functions on Busboy instance", () => {
       const uploadHandler = new UploadHandler({
         io: ioObj,
         socketId: "01",
@@ -79,6 +80,31 @@ describe("#UploadHandler test suite", () => {
         params.filename
       );
       expect(fs.createWriteStream).toHaveBeenCalledWith(expectedFilename);
+    });
+  });
+
+  describe("#handleFileBytes", () => {
+    test("should call emit function and it is a transform stream", async () => {
+      jest.spyOn(ioObj, ioObj.to.name);
+      jest.spyOn(ioObj, ioObj.emit.name);
+
+      const handler = new UploadHandler({
+        io: ioObj,
+        socketId: "01",
+      });
+
+      const messages = ["File is being sent =)"];
+      const source = TestUtil.generateReadableStream(messages);
+      const onWrite = jest.fn();
+      const target = TestUtil.generateWritableStream(onWrite);
+
+      await pipeline(source, handler.handleFileBytes("filename.txt"), target);
+
+      expect(ioObj.to).toHaveBeenCalledTimes(messages.length);
+      expect(ioObj.emit).toHaveBeenCalledTimes(messages.length);
+
+      expect(onWrite).toBeCalledTimes(messages.length);
+      expect(onWrite.mock.calls.join()).toEqual(messages.join());
     });
   });
 });
