@@ -98,6 +98,8 @@ describe("#UploadHandler test suite", () => {
         socketId: "01",
       });
 
+      jest.spyOn(handler, handler.canExecute.name).mockReturnValueOnce(true);
+
       const messages = ["File is being sent =)"];
       const source = TestUtil.generateReadableStream(messages);
       const onWrite = jest.fn();
@@ -112,4 +114,28 @@ describe("#UploadHandler test suite", () => {
       expect(onWrite.mock.calls.join()).toEqual(messages.join());
     });
   });
+
+  describe("#canExecute", () => {
+    
+    test("should return true when time is later than specified delay", () => {
+      const timerDelay = 1000,
+      const uploadHandler = new UploadHandler({
+        io: {},
+        socketId: "",
+        messageTimeDelay: timerDelay,
+      });
+      const tickNow = TestUtil.getTimeFromDate("2021-09-11 00:03");
+      const threeSecondsBefore = TestUtil.getTimeFromDate("2021-09-11 00:00");
+      const lastExecution = threeSecondsBefore;
+
+      const result = uploadHandler.canExecute(lastExecution);
+      expect(result).toBeTruthy();
+    });
+
+    test.todo(
+      "should return false when time is not later than specified delay"
+    );
+  });
 });
+
+// chore: back pressure implementation to avoid client being overloaded
