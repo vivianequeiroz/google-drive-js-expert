@@ -1,4 +1,4 @@
-import { Readable } from "stream";
+import { Readable, Transform, Writable } from "stream";
 
 export default class TestUtil {
   //receives an array
@@ -15,10 +15,20 @@ export default class TestUtil {
     });
   }
 
-  static generateWritableStream(data) {
+  static generateWritableStream(onData) {
     return new Writable({
       objectMode: true,
       write(chunk, encoding, cb) {
+        onData(chunk);
+        cb(null, chunk);
+      },
+    });
+  }
+
+  static generateTransformStream(onData) {
+    return new Transform({
+      objectMode: true,
+      transform(chunk, encoding, cb) {
         onData(chunk);
         cb(null, chunk);
       },
