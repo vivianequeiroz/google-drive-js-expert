@@ -1,7 +1,8 @@
 import { describe, test, expect, jest } from "@jest/globals";
 import Routes from "../../src/routes.js";
 import UploadHandler from "../../src/uploadHandler.js";
-import TestUtil from '../util/testUtil.js';
+import fs from "fs";
+import TestUtil from "../util/testUtil.js";
 
 describe("#UploadHandler test suite", () => {
   const ioObj = {
@@ -25,13 +26,35 @@ describe("#UploadHandler test suite", () => {
       const onFinish = jest.fn();
       const busboyInstance = uploadHandler.registerEvents(headers, onFinish);
 
-      const fileStream = TestUtil.generateReadableStream(["chunk", "of", "data"]);
-      busboyInstance.emit("file", "fieldname", fileStream, 'filename.txt'  )
+      const fileStream = TestUtil.generateReadableStream([
+        "chunk",
+        "of",
+        "data",
+      ]);
+      busboyInstance.emit("file", "fieldname", fileStream, "filename.txt");
 
       busboyInstance.listeners("finish")[0].call();
-      
+
       expect(uploadHandler.onFile).toHaveBeenCalled();
       expect(onFinish).toHaveBeenCalled();
+    });
+  });
+
+  describe("#onFile", () => {
+    test("given a stream file it should save it on disk", async () => {
+      const chunks = ["hey", "dyde"];
+      const downloadsFolder = "/temp";
+      const handler = new UploadHandler({
+        io: ioObj,
+        socketId: "01",
+        downloadsFolder,
+      });
+
+      const onData = jest.fn();
+
+      jest
+        .spyOn(fs, fs.createWriteStream.name)
+        .mockImplementation(() => TestUtil.generateWritableStream(onData));
     });
   });
 });
