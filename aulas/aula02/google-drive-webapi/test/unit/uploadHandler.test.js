@@ -13,7 +13,7 @@ describe("#UploadHandler test suite", () => {
     emit: (event, message) => {},
   };
 
-  before(() => {
+  beforeEach(() => {
     jest.spyOn(logger, "info").mockImplementation();
   });
 
