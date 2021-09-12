@@ -123,18 +123,31 @@ describe("#UploadHandler test suite", () => {
         socketId: "",
         messageTimeDelay: timerDelay,
       });
-      const tickNow = TestUtil.getTimeFromDate("2021-09-11 00:03");
-      const threeSecondsBefore = TestUtil.getTimeFromDate("2021-09-11 00:00");
-      const lastExecution = threeSecondsBefore;
+
+      const tickNow = TestUtil.getTimeFromDate("2021-07-01 00:00:03");
+      TestUtil.mockDateNow([tickNow]);
+
+      const lastExecution = TestUtil.getTimeFromDate("2021-07-01 00:00:00");
 
       const result = uploadHandler.canExecute(lastExecution);
       expect(result).toBeTruthy();
     });
 
-    test.todo(
-      "should return false when time is not later than specified delay"
-    );
+    test("should return false when time is not later than specified delay", () => {
+      const timerDelay = 3000;
+      const uploadHandler = new UploadHandler({
+        io: {},
+        socketId: "",
+        messageTimeDelay: timerDelay,
+      });
+
+      const now = TestUtil.getTimeFromDate("2021-07-01 00:00:02");
+      TestUtil.mockDateNow([now]);
+
+      const lastExecution = TestUtil.getTimeFromDate("2021-07-01 00:00:01");
+
+      const result = uploadHandler.canExecute(lastExecution);
+      expect(result).toBeFalsy();
+    });
   });
 });
-
-// chore: back pressure implementation to avoid client being overloaded

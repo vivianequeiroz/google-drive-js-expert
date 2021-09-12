@@ -12,7 +12,9 @@ export default class UploadHandler {
     this.messageTimeDelay = messageTimeDelay;
   }
 
-  canExecute(lastExecution) {}
+  canExecute(lastExecution) {
+    return Date.now() - lastExecution >= this.messageTimeDelay;
+  }
 
   handleFileBytes(filename) {
     this.lastMessageSent = Date.now();
