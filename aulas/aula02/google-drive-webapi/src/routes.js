@@ -11,6 +11,7 @@ export default class Routes {
   constructor(downloadsFolder = defaultDownloadsFolder) {
     this.downloadsFolder = downloadsFolder;
     this.fileHelper = FileHelper;
+    this.io = {};
   }
 
   setSocketInstance(io) {

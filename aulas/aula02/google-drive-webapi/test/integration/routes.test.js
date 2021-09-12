@@ -15,7 +15,7 @@ import { logger } from "../../src/logger.js";
 import { tmpdir } from "os";
 import { join } from "path";
 
-describe("#RoutesIntegrationTest", () => {
+describe("#Routes Integration Test", () => {
   let defaultDownloadsFolder = "";
 
   beforeAll(async () => {
