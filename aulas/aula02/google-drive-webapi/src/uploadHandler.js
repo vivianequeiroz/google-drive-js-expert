@@ -29,6 +29,8 @@ export default class UploadHandler {
           continue;
         }
 
+        this.lastMessageSent = Date.now();
+
         this.io
           .to(this.socketId)
           .emit(this.ON_UPLOAD_EVENT, { processedAlready, filename });
