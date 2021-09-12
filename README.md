@@ -1,9 +1,4 @@
 # Google Drive Clone - Semana JS Expert 5.0
-
-Seja bem vindo(a) à quinta Semana Javascript Expert. Este é o código inicial para iniciar nossa jornada.
-
-Marque esse projeto com uma estrela 🌟
-
 ## Preview
 
 ![](./resources/demo.gif)
@@ -19,7 +14,7 @@ Marque esse projeto com uma estrela 🌟
     - [✅] Deve atingir 100% de cobertura de código em testes
 
 - Web App 
-    - [] Deve listar arquivos baixados
+    - [✅] Deve listar arquivos baixados
     - [] Deve permitir fazer upload de arquivos de qualquer tamanho
     - [] Deve ter função de upload via botão
     - [] Deve exibir progresso de upload 
