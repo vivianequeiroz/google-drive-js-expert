@@ -5,10 +5,10 @@ import { logger } from "./logger.js";
 
 export default class UploadHandler {
   constructor({ io, socketId, downloadsFolder, messageTimeDelay = 200 }) {
-    (this.io = io),
-      (this.socketId = socketId),
-      (this.downloadsFolder = downloadsFolder),
-      (this.ON_UPLOAD_EVENT = "file-upload");
+    this.io = io;
+    this.socketId = socketId;
+    this.downloadsFolder = downloadsFolder;
+    this.ON_UPLOAD_EVENT = "file-upload";
     this.messageTimeDelay = messageTimeDelay;
   }
 
