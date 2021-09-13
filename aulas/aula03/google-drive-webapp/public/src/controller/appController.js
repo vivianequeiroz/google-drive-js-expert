@@ -5,7 +5,15 @@ export default class AppController {
   }
 
   async initialize() {
+    this.viewManager.configureFileBtnClick();
+    this.viewManager.configureOnFileChange(this.onFileChange.bind(this));
+    this.connectionManagerService.configureEvents(() => {});
+
     await this.updateCurrentFiles();
+  }
+
+  async onFileChange(files) {
+    debugger;
   }
 
   async updateCurrentFiles() {
