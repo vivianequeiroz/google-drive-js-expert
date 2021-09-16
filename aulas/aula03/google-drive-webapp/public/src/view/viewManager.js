@@ -5,6 +5,7 @@ export default class ViewManager {
     this.fileElem = document.getElementById("fileElem");
     this.progressModal = document.getElementById("progressModal");
     this.progressBar = document.getElementById("progressBar");
+    this.output = document.getElementById("output");
 
     this.formatter = new Intl.DateTimeFormat("pt", {
       local: "pt-br",
@@ -19,7 +20,7 @@ export default class ViewManager {
   }
 
   configureModal() {
-    this.modalInstance = M.modal.init(this.progressModal, {
+    this.modalInstance = M.Modal.init(this.progressModal, {
       opacity: 0,
       dismissable: false,
       onOpenEnd() {
@@ -31,6 +32,11 @@ export default class ViewManager {
 
   openModal() {
     this.modalInstance.open();
+  }
+
+  updateStatus(size) {
+    this.output.innerHTML = `Uploading in <b>${Math.floor(size)}%</b>`;
+    this.progressBar.value = size;
   }
 
   closeModal() {
