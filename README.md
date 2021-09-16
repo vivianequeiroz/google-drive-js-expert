@@ -15,8 +15,8 @@
 
 - Web App 
     - [✅] Deve listar arquivos baixados
-    - [✅]] Deve permitir fazer upload de arquivos de qualquer tamanho
-    - [✅]] Deve ter função de upload via botão
+    - [✅] Deve permitir fazer upload de arquivos de qualquer tamanho
+    - [✅] Deve ter função de upload via botão
     - [] Deve exibir progresso de upload 
     - [] Deve ter função de upload via drag and drop
 
