@@ -3,6 +3,8 @@ export default class ViewManager {
     this.tbody = document.getElementById("tbody");
     this.newFileBtn = document.getElementById("newFileBtn");
     this.fileElem = document.getElementById("fileElem");
+    this.progressModal = document.getElementById("progressModal");
+    this.progressBar = document.getElementById("progressBar");
 
     this.formatter = new Intl.DateTimeFormat("pt", {
       local: "pt-br",
@@ -12,6 +14,27 @@ export default class ViewManager {
       hour: "2-digit",
       minute: "2-digit",
     });
+
+    this.modalInstance = {};
+  }
+
+  configureModal() {
+    this.modalInstance = M.modal.init(this.progressModal, {
+      opacity: 0,
+      dismissable: false,
+      onOpenEnd() {
+        //allow user to click outside the modal
+        this.$overlay[0].remove();
+      },
+    });
+  }
+
+  openModal() {
+    this.modalInstance.open();
+  }
+
+  closeModal() {
+    this.modalInstance.close();
   }
 
   configureOnFileChange(fn) {
