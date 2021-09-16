@@ -2,6 +2,7 @@ export default class AppController {
   constructor({ connectionManagerService, viewManager }) {
     this.connectionManagerService = connectionManagerService;
     this.viewManager = viewManager;
+    this.uploadingFiles = new Map();
   }
 
   async initialize() {
@@ -13,7 +14,15 @@ export default class AppController {
   }
 
   async onFileChange(files) {
-    debugger;
+    const requests = [];
+    for (const file of files) {
+      this.uploadingFiles.set(file.name, file);
+      requests.push(this.connectionManagerService.uploadFile(file));
+    }
+
+    await Promise.all(requests);
+
+    await this.updateCurrentFiles();
   }
 
   async updateCurrentFiles() {
@@ -21,3 +30,4 @@ export default class AppController {
     this.viewManager.updateCurrentFiles(files);
   }
 }
+// 46:21s
