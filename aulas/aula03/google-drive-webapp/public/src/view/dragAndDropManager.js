@@ -1,11 +1,15 @@
 export default class DragAndDropManager {
   constructor() {
     this.dropArea = document.getElementById("dropArea");
+    this.onDropHandler = () => {};
   }
 
-  initialize() {
+  initialize({ onDropHandler }) {
+    this.onDropHandler = onDropHandler;
+
     this.disableDrangAndDropEvents();
     this.enableHighlightOnDrag();
+    this.enableDrop();
   }
 
   disableDrangAndDropEvents() {
@@ -32,5 +36,16 @@ export default class DragAndDropManager {
     events.forEach((eventName) => {
       this.dropArea.addEventListener(eventName, hightlight, false);
     });
+  }
+
+  enableDrop(e) {
+    const drop = (e) => {
+      this.dropArea.classList.remove("drop-area");
+
+      const files = e.dataTransfer.files;
+      return this.onDropHandler(files);
+    };
+
+    this.dropArea.addEventListener("drop", drop, false);
   }
 }

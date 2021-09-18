@@ -12,7 +12,9 @@ export default class AppController {
     this.viewManager.configureModal();
     this.viewManager.configureOnFileChange(this.onFileChange.bind(this));
 
-    this.dragAndDropManager.initialize();
+    this.dragAndDropManager.initialize({
+      onDropHandler: this.onFileChange.bind(this),
+    });
 
     this.connectionManagerService.configureEvents({
       onProggres: this.onProgress.bind(this),
