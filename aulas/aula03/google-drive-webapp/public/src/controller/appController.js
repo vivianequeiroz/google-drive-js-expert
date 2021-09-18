@@ -48,6 +48,8 @@ export default class AppController {
   }
 
   async onFileChange(files) {
+    this.uploadingFiles.clear();
+
     const requests = [];
 
     this.viewManager.openModal();
