@@ -7,8 +7,14 @@ export default class AppController {
 
   async initialize() {
     this.viewManager.configureFileBtnClick();
+    this.viewManager.configureModal();
     this.viewManager.configureOnFileChange(this.onFileChange.bind(this));
     this.connectionManagerService.configureEvents(() => {});
+
+    this.viewManager.openModal();
+    setTimeout(() => {
+      this.viewManager.closeModal();
+    }, 2000);
 
     await this.updateCurrentFiles();
   }
