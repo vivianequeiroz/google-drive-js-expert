@@ -5,6 +5,7 @@ export default class DragAndDropManager {
 
   initialize() {
     this.disableDrangAndDropEvents();
+    this.enableHighlightOnDrag();
   }
 
   disableDrangAndDropEvents() {
@@ -18,6 +19,18 @@ export default class DragAndDropManager {
     events.forEach((eventName) => {
       this.dropArea.addEventListener(eventName, preventDefaults, false);
       document.body.addEventListener(eventName, preventDefaults, false);
+    });
+  }
+
+  enableHighlightOnDrag() {
+    const events = ["dragenter", "dragover"];
+    const hightlight = (e) => {
+      this.dropArea.classList.add("highlight");
+      this.dropArea.classList.add("drop-area");
+    };
+
+    events.forEach((eventName) => {
+      this.dropArea.addEventListener(eventName, hightlight, false);
     });
   }
 }
